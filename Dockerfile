@@ -16,11 +16,9 @@ WORKDIR /JobBoard
 COPY . /JobBoard
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install --no-cache-dir psycopg2-binary
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Change permissions for staticfiles directory
-RUN chmod -R 775 /JobBoard/staticfiles
 
 # Set executable permissions for entrypoint.sh
 RUN chmod +x /JobBoard/entrypoint.sh
