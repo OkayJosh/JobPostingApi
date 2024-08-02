@@ -104,7 +104,7 @@ class TestJobAdvertService:
         You should be able to see the list of job advert even while a guest user
         :return:
         """
-        response = self.client.get(reverse('job-advert-list'))
+        response = self.client.get(reverse('job-advert'))
         assert response.status_code == status.HTTP_200_OK
         assert len(response.data['results']) > 0
 
