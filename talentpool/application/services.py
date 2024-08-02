@@ -98,8 +98,8 @@ class JobAdvertService:
         """
         serializer = JobAdvertSerializer(data=data)
         if serializer.is_valid():
-            job_advert = serializer.save()
-            return job_advert
+            serializer.save()
+            return serializer.data
         raise ValidationError(serializer.errors)
 
     @staticmethod
@@ -117,8 +117,8 @@ class JobAdvertService:
 
         serializer = JobAdvertSerializer(job_advert, data=data, partial=True)
         if serializer.is_valid():
-            job_advert = serializer.save()
-            return job_advert
+            serializer.save()
+            return serializer.data
         raise ValidationError(serializer.errors)
 
     @staticmethod
@@ -233,8 +233,8 @@ class JobApplicationService:
         """
         serializer = JobApplicationSerializer(data=data)
         if serializer.is_valid():
-            job_application = serializer.save()
-            return job_application
+            serializer.save()
+            return serializer.data
         raise ValidationError(serializer.errors)
 
     @staticmethod
