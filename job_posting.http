@@ -1,0 +1,67 @@
+POST {{host}}/users/login
+Content-Type: application/json
+
+{
+  "username": "bant3",
+  "password": "testpass123"
+}
+###
+# REGISTER A NEW USER
+POST {{host}}/users/
+Content-Type: application/json
+
+{
+  "username": "bant3",
+  "password": "testpass123"
+}
+###
+#8f0c5d53ad7b0c2f446eee92fbd0f5f80df7ee14
+##CREATE JOB ADVERT
+POST {{host}}/job-advert/
+Content-Type: application/json
+Authorization: Token 8f0c5d53ad7b0c2f446eee92fbd0f5f80df7ee14
+
+{
+  "title": "New JOB",
+  "company_name": "New Company",
+  "employment_type": "full_time",
+  "experience_level": "entry",
+  "description": "Job description",
+  "location": "Location",
+  "job_description": "Detailed job description",
+  "is_published": true
+}
+###
+### APPLY TO JOB
+### 7fac9fd0-22a1-488e-a846-bfa1442a7156
+POST {{host}}/job-application/
+Content-Type: application/json
+Authorization: Token 8f0c5d53ad7b0c2f446eee92fbd0f5f80df7ee14
+
+{
+  "job_advert": "7fac9fd0-22a1-488e-a846-bfa1442a7156",
+  "first_name": "John",
+  "last_name": "Doe",
+  "email": "john.doe@example.com",
+  "phone": "1234567890",
+  "linkedin_profile": "https://linkedin.com/in/johndoe",
+  "github_profile": "https://github.com/johndoe",
+  "website": "https://johndoe.com",
+  "years_of_experience": "1-2",
+  "cover_letter": "Cover letter content"
+}
+### 4c30edd0-8672-43b9-9059-0f949e9635b5 job_ap_id
+###
+GET {{host}}/job-application/4c30edd0-8672-43b9-9059-0f949e9635b5/
+Content-Type: application/json
+Authorization: Token 8f0c5d53ad7b0c2f446eee92fbd0f5f80df7ee14
+
+###
+GET {{host}}/job-advert/7fac9fd0-22a1-488e-a846-bfa1442a7156/
+Content-Type: application/json
+Authorization: Token 8f0c5d53ad7b0c2f446eee92fbd0f5f80df7ee14
+
+###
+GET {{host}}/job-adverts/
+Content-Type: application/json
+Authorization: Token 8f0c5d53ad7b0c2f446eee92fbd0f5f80df7ee14

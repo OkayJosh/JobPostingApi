@@ -171,16 +171,6 @@ class JobApplicationListAPIView(APIView):
     """
     permission_classes = [IsAuthenticated]
 
-    @job_application_create_schema
-    def post(self, request) -> Response:
-        """
-        Submit a job job_application for a job advert
-        :param request:
-        :return Response:
-        """
-        job_application = JobApplicationService.create_job_application(request.data)
-        return Response(job_application, status=status.HTTP_201_CREATED)
-
     @job_application_list_schema
     def get(self, request, job_advert_id) -> Response:
         """
@@ -209,6 +199,17 @@ class JobApplicationDetailAPIView(APIView):
         """
         job_application = JobApplicationService.get_job_application(job_application_id)
         return Response(job_application)
+
+    @job_application_create_schema
+    def post(self, request) -> Response:
+        """
+        Submit a job job_application for a job advert
+        :param request:
+        :return Response:
+        """
+        job_application = JobApplicationService.create_job_application(request.data)
+        return Response(job_application, status=status.HTTP_201_CREATED)
+
 
     @job_application_delete_schema
     def delete(self, request, job_application_id) -> Response:

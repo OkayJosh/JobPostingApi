@@ -48,23 +48,23 @@ urlpatterns = [
         JobAdvertListAPIView.as_view(),
         name='job-advert'
     ),
-    # path(
-    #     'job-adverts/',
-    #     JobAdvertDetailAPIView.as_view(),
-    #     name='job-advert-create'
-    # ),
     path(
-        'job-adverts/<uuid:job_advert_id>/',
+        'job-advert/',
+        JobAdvertDetailAPIView.as_view(),
+        name='job-advert-create'
+    ),
+    path(
+        'job-advert/<uuid:job_advert_id>/',
         JobAdvertDetailAPIView.as_view(),
         name='job-advert-detail'
     ),
     path(
-        'job-adverts/<uuid:job_advert_id>/publish/',
+        'job-advert/<uuid:job_advert_id>/publish/',
         JobAdvertPublishAPIView.as_view(),
         name='job-advert-publish'
     ),
     path(
-        'job-adverts/<uuid:job_advert_id>/applications/',
+        'job-advert/<uuid:job_advert_id>/applications/',
         JobApplicationListAPIView.as_view(),
         name='job-application'
     ),
@@ -74,7 +74,7 @@ urlpatterns = [
         name='job-application-create'
     ),
     path(
-        'job-applications/<uuid:job_application_id>/',
+        'job-application/<uuid:job_application_id>/',
         JobApplicationDetailAPIView.as_view(),
         name='job-application-detail'
     )
