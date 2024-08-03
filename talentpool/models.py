@@ -1,7 +1,6 @@
 """
 Talentpool models module
 """
-import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django_extensions.db.models import TimeStampedModel
@@ -18,7 +17,6 @@ class User(TimeStampedModel, AbstractUser):
         3. I use uuid because id ont want the id to expose the user count in the db
         4. Username/email and Password are in the AbstractUser Class
     """
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4)
 
 
 class JobAdvert(TimeStampedModel):
@@ -37,7 +35,7 @@ class JobAdvert(TimeStampedModel):
         ('mid', 'Mid-level'),
         ('senior', 'Senior')
     ]
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    # uuid = models.UUIDField(primary_key=True, default=uuid.uuid4)
     # Why do we have to keep description and job_description separate?
     title = models.CharField(max_length=255)
     company_name = models.CharField(max_length=255)
@@ -54,15 +52,6 @@ class JobAdvert(TimeStampedModel):
     def __str__(self):
         return self.title
 
-    # def save(self, *args, **kwargs):
-    #     if self.publish_at and self.publish_at > timezone.now():
-    #         self.is_published = True
-    #         self.is_scheduled = True
-    #     else:
-    #         self.is_published = True
-    #         self.is_scheduled = False
-    #     super().save(*args, **kwargs)
-
 
 class JobApplication(TimeStampedModel):
     """
@@ -76,9 +65,9 @@ class JobApplication(TimeStampedModel):
         ('7+', '7 and above')
     ]
 
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4)
     job_advert = models.ForeignKey(
-        JobAdvert, on_delete=models.CASCADE, related_name='applications'
+        JobAdvert, on_delete=models.CASCADE, related_name='applications',
+        to_field='uuid'
     )
     # why do we have to keep first_name, last_name and email here when we can
     # get it from the users model
