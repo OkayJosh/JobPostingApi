@@ -56,4 +56,6 @@ class TalentpoolConfig(AppConfig):
         """
         from django.apps import apps
         for model in apps.get_app_config(self.name).get_models():
+            # WARNING: This approach for replacing the id field as uuid
+            # does not support migrations rollback
             set_uuid_primary_key(model)
