@@ -145,7 +145,8 @@ class JobAdvertService:
         :param params:
         :return:
         """
-        queryset = JobAdvert.objects.annotate(applicant_count=Count('applications')).order_by(
+        queryset = JobAdvert.objects.filter(
+            is_published=True).annotate(applicant_count=Count('applications')).order_by(
             '-is_published', '-applicant_count', 'created'
         )
         paginator = JobAdvertPagination()
@@ -175,12 +176,12 @@ class JobAdvertService:
         :return:
         """
         try:
-            job_advert = JobAdvert.objects.get(uuid=job_advert_id)
+            job_advert = JobAdvert.objects.get(uuid=job_advert_id, is_published=False)
             job_advert.is_published = True
             job_advert.save()
             serializer = JobAdvertSerializer(job_advert)
             return serializer.data
-        except JobAdvert.DoesNotExist as exc:
+        except (JobAdvert.DoesNotExist, AttributeError) as exc:
             raise ValidationError({'detail': exc.args[0]}) from exc
 
     @staticmethod

@@ -5,6 +5,7 @@ Talentpool Interface Serializers Module
 from django.utils import timezone
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+from rest_framework.exceptions import ValidationError
 
 from talentpool.models import User, JobAdvert, JobApplication
 
@@ -110,3 +111,14 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         fields = ['uuid', 'job_advert', 'first_name',
                   'last_name', 'email', 'phone', 'linkedin_profile', 'github_profile',
                   'website', 'years_of_experience', 'cover_letter']
+
+    def validate_job_advert(self, value):
+        """
+        Validate job_advert, you can only apply to a job that is_published
+        :param value:
+        :return:
+        """
+        job_advert = JobAdvert.objects.get(uuid=value.job_advert)
+        if job_advert.is_published is not True:
+            raise ValidationError("You cannot apply for a job that is not published.")
+        return value
